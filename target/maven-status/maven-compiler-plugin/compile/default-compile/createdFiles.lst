@@ -1,1 +1,8 @@
+com/mateus/aegisTransaction/presentation/dto/UpdateTransactionDto.class
+com/mateus/aegisTransaction/presentation/dto/CreateTransactionDto.class
+com/mateus/aegisTransaction/domain/Transaction.class
+com/mateus/aegisTransaction/application/TransactionService.class
+com/mateus/aegisTransaction/infrastructure/TransactionRepository.class
 com/mateus/aegisTransaction/AegisTransactionApplication.class
+com/mateus/aegisTransaction/presentation/TransactionController.class
+com/mateus/aegisTransaction/infrastructure/KafkaProducerConfig.class

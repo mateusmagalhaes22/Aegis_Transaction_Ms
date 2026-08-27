@@ -1,1 +1,8 @@
 /home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/AegisTransactionApplication.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/application/TransactionService.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/domain/Transaction.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/infrastructure/KafkaProducerConfig.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/infrastructure/TransactionRepository.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/presentation/TransactionController.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/presentation/dto/CreateTransactionDto.java
+/home/mateusmagalhaes/dev/Aegis/Aegis_Transaction_Ms/src/main/java/com/mateus/aegisTransaction/presentation/dto/UpdateTransactionDto.java

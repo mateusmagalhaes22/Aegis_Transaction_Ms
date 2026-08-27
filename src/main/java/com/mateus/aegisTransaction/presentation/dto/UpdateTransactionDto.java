@@ -7,4 +7,8 @@ public class UpdateTransactionDto {
 
     private String description;
 
+    public String getDescription() {
+        return description;
+    }
+
 }

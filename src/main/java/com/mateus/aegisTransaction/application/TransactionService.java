@@ -2,6 +2,8 @@ package com.mateus.aegisTransaction.application;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mateus.aegisTransaction.domain.Transaction;
@@ -12,13 +14,22 @@ import com.mateus.aegisTransaction.presentation.dto.UpdateTransactionDto;
 public class TransactionService {
     
     private final TransactionRepository transactionRepository;
+    private final KafkaTemplate<String, Transaction> kafkaTemplate;
+    private final String transactionsTopic;
 
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(
+            TransactionRepository transactionRepository,
+            KafkaTemplate<String, Transaction> kafkaTemplate,
+            @Value("${app.kafka.transactions-topic:transactions}") String transactionsTopic) {
         this.transactionRepository = transactionRepository;
+        this.kafkaTemplate = kafkaTemplate;
+        this.transactionsTopic = transactionsTopic;
     }
 
     public Transaction createTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
+        Transaction savedTransaction = transactionRepository.save(transaction);
+        kafkaTemplate.send(transactionsTopic, savedTransaction.getId(), savedTransaction);
+        return savedTransaction;
     }
 
     public Transaction getTransaction(String id) {

@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mateus.aegisTransaction.application.TransactionService;
 import com.mateus.aegisTransaction.domain.Transaction;
+import com.mateus.aegisTransaction.presentation.dto.CreateTransactionDto;
 import com.mateus.aegisTransaction.presentation.dto.UpdateTransactionDto;
 
 
@@ -27,16 +29,15 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
+    public ResponseEntity<Transaction> createTransaction(@RequestBody CreateTransactionDto transaction) {
         return ResponseEntity.ok(transactionService.createTransaction(transaction));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransaction(@PathVariable String id) {
-        Transaction transaction = transactionService.getTransaction(id);
-        if (transaction != null) {
-            return ResponseEntity.ok(transaction);
-        } else {
+        try {
+            return ResponseEntity.ok(transactionService.getTransaction(id));
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -48,7 +49,8 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> updateTransaction(String id, UpdateTransactionDto updatedTransaction) {
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable String id,
+        @RequestBody UpdateTransactionDto updatedTransaction) {
         try {
             Transaction transaction = transactionService.updateTransaction(id, updatedTransaction);
             return ResponseEntity.ok(transaction);
@@ -58,12 +60,12 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTransaction(String id) {
-        Transaction transaction = transactionService.getTransaction(id);
-        if (transaction != null) {
+    public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
+        try {
+            transactionService.getTransaction(id);
             transactionService.deleteTransaction(id);
             return ResponseEntity.noContent().build();
-        } else {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }

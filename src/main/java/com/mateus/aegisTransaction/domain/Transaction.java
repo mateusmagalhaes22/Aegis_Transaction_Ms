@@ -23,13 +23,5 @@ public class Transaction {
     private String description;
     private double amount;
     private Date date;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    private Status status;
 }

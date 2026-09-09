@@ -19,13 +19,17 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
       properties:
         spring.json.add.type.headers: false
+
+jwt:
+  secret: ${JWT_SECRET:22b0ef20d7ec3777ea19cf5e8f17ca946e274b0f3d6202c50299efbd511965bb}
 
 app:
   kafka:
     transactions-topic: ${KAFKA_TRANSACTIONS_TOPIC:transactions}
+    transaction-validation-topic: ${KAFKA_TRANSACTION_VALIDATION_TOPIC:transaction-validation}
 
 server:
   port: 0

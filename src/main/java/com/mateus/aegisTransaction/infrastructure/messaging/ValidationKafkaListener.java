@@ -1,7 +1,4 @@
-package com.mateus.aegisTransaction.infrastructure;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.mateus.aegisTransaction.infrastructure.messaging;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +7,11 @@ import com.mateus.aegisTransaction.domain.Status;
 import com.mateus.aegisTransaction.presentation.dto.TransactionValidationDto;
 
 @Component
-public class TransactionKafkaListener {
+public class ValidationKafkaListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransactionKafkaListener.class);
     private final TransactionService transactionService;
 
-    public TransactionKafkaListener(TransactionService transactionService) {
+    public ValidationKafkaListener(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 
@@ -28,7 +24,7 @@ public class TransactionKafkaListener {
                     : Status.REJECTED;
             transactionService.validateTransaction(validationDto.transactionId(), status);
         } catch (IllegalArgumentException exception) {
-            logger.warn("Discarding invalid transaction validation message: {}", message, exception);
+            System.err.println("Failed to process transaction validation message: " + exception.getMessage());
         }
     }
 }

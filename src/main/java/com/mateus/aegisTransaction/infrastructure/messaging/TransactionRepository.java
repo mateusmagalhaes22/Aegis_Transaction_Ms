@@ -1,4 +1,4 @@
-package com.mateus.aegisTransaction.infrastructure;
+package com.mateus.aegisTransaction.infrastructure.messaging;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.aegisTransaction.domain.Status;
 import com.mateus.aegisTransaction.domain.Transaction;
-import com.mateus.aegisTransaction.infrastructure.TransactionRepository;
+import com.mateus.aegisTransaction.infrastructure.messaging.TransactionRepository;
 import com.mateus.aegisTransaction.presentation.dto.CreateTransactionDto;
 import com.mateus.aegisTransaction.presentation.dto.UpdateTransactionDto;
 
@@ -38,7 +38,6 @@ public class TransactionService {
         transaction.setDate(currentDate);
         transaction.setStatus(Status.PENDING);
         Transaction savedTransaction = transactionRepository.save(transaction);
-        System.out.println("Transaction created with ID: " + savedTransaction.getId());
         kafkaTemplate.send(transactionsTopic, savedTransaction.getId(), savedTransaction);
         return savedTransaction;
     }
@@ -62,7 +61,6 @@ public class TransactionService {
     }
 
     public void validateTransaction(String id, Status newStatus) {
-        System.out.println("Validating transaction with ID: " + id + " and new status: " + newStatus);
         Transaction transaction = this.getTransaction(id);
         transaction.setStatus(newStatus);
         transactionRepository.save(transaction);

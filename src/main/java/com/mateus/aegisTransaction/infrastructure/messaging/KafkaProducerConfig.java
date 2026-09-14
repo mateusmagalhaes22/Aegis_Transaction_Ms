@@ -1,4 +1,4 @@
-package com.mateus.aegisTransaction.infrastructure;
+package com.mateus.aegisTransaction.infrastructure.messaging;
 
 import java.util.HashMap;
 import java.util.Map;
